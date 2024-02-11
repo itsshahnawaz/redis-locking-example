@@ -2,14 +2,17 @@ version: "3.8"
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
     depends_on:
       - redis
     volumes:
       - .:/app
-    command: python main.py
+    command: python -m uvicorn redis-stream:app --reload --host 0.0.0.0 --port 8000
+    # command: python -m uvicorn main:app --reload
 
   redis:
     image: "redis:latest"
