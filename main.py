@@ -56,5 +56,5 @@ async def disconnect(sid):
         await redis.set(REDIS_TEST_KEY, "post-disconnect")
         await asyncio.sleep(4)
 
-if __name__ == "__main__":
-    run("main:app", host="127.0.0.1", port=8000, workers=4)
+# if __name__ == "__main__":
+#     run("main:app", host="127.0.0.1", port=8000, workers=4)
