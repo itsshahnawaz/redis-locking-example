@@ -11,7 +11,7 @@ services:
       - redis
     volumes:
       - .:/app
-    command: python -m uvicorn redis-stream:app --reload --host 0.0.0.0 --port 8000
+    command: python -m uvicorn redis-stream-v2:app --reload --host 0.0.0.0 --port 8000
     # command: python -m uvicorn main:app --reload
 
   redis:
