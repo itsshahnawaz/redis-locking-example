@@ -1,23 +1,16 @@
-from socketio import AsyncClient
+import requests
 import asyncio
 
-sio = AsyncClient(
-    reconnection_attempts=0,
-    reconnection_delay=1,
-)
-
-async def connect():
-    print("====START CONNECT====")
-    await sio.connect('http://localhost:8000', wait_timeout=10)
 
 async def main():
-    try:
-        print("====MAIN====")
-        await connect()
-        print("====CONNECTED====")
-        await sio.wait()
-    except Exception as e:
-        print('====Exception: ', e)
+    response = requests.post(
+        "http://127.0.0.1:8000/chat_stream/",
+        json={"message": "Hi", "chat_id": "123"},
+        stream=True,
+    )
+    for chunk in response.iter_content(chunk_size=1):
+        if chunk:
+            print(chunk.decode(), end="", flush=True)
 
 
 asyncio.run(main())
